@@ -1,0 +1,82 @@
+# 📈 Apex Carteira - Gestão de Investimentos Fullstack com Rust
+
+[![Rust](https://shields.io)](https://rust-lang.org)
+[![Axum](https://shields.io)](https://github.com)
+[![PostgreSQL](https://shields.io)](https://postgresql.org)
+
+Desenvolvimento avançado de uma aplicação web fullstack e monolítica utilizando Rust para a gestão de ativos financeiros. O ecossistema base fornecido pela DIO foi estendido e completamente customizado pelo desenvolvedor **Mmaicon95**, adotando a marca institucional **"Apex Carteira"** e um ecossistema visual moderno em **Dark Mode**.
+
+O projeto consolida o desenvolvimento de software de alta performance ao integrar um backend assíncrono com renderização de páginas no lado do servidor (SSR) totalmente tipada, eliminando inconsistências de comunicação entre front-end e back-end.
+
+---
+
+## 🛠️ Stack Tecnológica Utilizada
+
+- **Backend Core:** Linguagem Rust operando de forma assíncrona sob o runtime Tokio.
+- **Framework Web & Roteamento:** Axum para o gerenciamento de requisições HTTP, middlewares e controle de estado.
+- **Banco de Dados & Persistência:** PostgreSQL com validação estática de consultas SQL em tempo de compilação através de macros do SQLx.
+- **Camada de Visão (Front-End):** Templates HTML processados e compilados diretamente dentro do binário nativo com Askama.
+- **Precisão Financeira:** Uso do crate `rust_decimal` para mitigar bugs de arredondamento de ponto flutuante (`f64`) comuns em sistemas monetários.
+
+---
+
+## ⚡ Customizações e Lógicas Implementadas nesta Versão (Nossos 9 Commits à Frente)
+
+1. **Bootstrap Customizado:** Alteração completa dos fluxos de logs internos (`src/main.rs`) para realizar a inicialização do ecossistema imprimindo a assinatura do desenvolvedor Mmaicon95 e a marca Apex Carteira no terminal de execução.
+2. **Lógica de Negócios Estendida:** Modificação estrutural no modelo de dados (`src/models.rs`), permitindo que o servidor processe dinamicamente os subtotais patrimoniais de cada ativo financeiro.
+3. **Cálculo Agregador no Front-End:** Acoplamento de métodos matemáticos funcionais na estrutura do Askama (`impl DashboardTemplate`), injetando o cálculo automático agregador de patrimônio total direto na renderização da interface.
+4. **Redesenho Completo UI/UX:** Substituição do layout padrão por um painel **Dark Mode** minimalista de alta legibilidade construído com Tailwind CSS, otimizado para relatórios financeiros.
+
+---
+
+## ⚙️ Como Executar a Aplicação
+
+### Pré-requisitos
+* Docker e Docker Compose instalados.
+* Ferramentas do Rust (`cargo`) instaladas localmente.
+
+### Passo a Passo
+
+1. **Subir o banco de dados (PostgreSQL via Docker):**
+   ```bash
+   docker-compose up -d
+   ```
+
+2. **Instalar a CLI do SQLx (Necessário para as migrações):**
+   ```bash
+   cargo install sqlx-cli --no-default-features --features postgres
+   ```
+
+3. **Executar as migrações do banco (Criação de tabelas e carga de dados de teste):**
+   ```bash
+   sqlx migrate run
+   ```
+
+4. **Iniciar o servidor:**
+   ```bash
+   cargo run
+   ```
+   A aplicação estará disponível em seu navegador através do endereço `http://localhost:3000`.
+
+---
+
+## 🧪 Como Testar a Versão
+
+Para rodar a suite de testes automatizados e validar a integridade dos modelos matemáticos do projeto, execute:
+
+```bash
+cargo test
+```
+
+Para validar visualmente, o banco de dados já inicializa através do script SQL com dados simulados (`PETR4`, `VALE3`, `IVVB11`) atrelados ao usuário logado, permitindo validar o funcionamento imediato do painel Dark Mode e a precisão do patrimônio consolidado.
+
+---
+
+## 🧠 O que Aprendi durante o Desafio
+
+* **A Rigidez Produtiva do Rust:** Como o sistema de *ownership* e o *borrow checker* garantem concorrência segura em aplicações web sem a necessidade de um Garbage Collector.
+* **Segurança na Compilação com SQLx:** O poder de descobrir erros de sintaxe ou incompatibilidade de colunas SQL antes mesmo do projeto compilar, gerando binários altamente confiáveis.
+* **Velocidade com Server-Side Rendering (SSR):** A eficiência dos templates compilados do `askama`, que entregam performance de nível nativo se comparado a SPAs de frameworks javascript tradicionais.
+
+---
+Desenvolvido com 🦀 por **Mmaicon95**.
