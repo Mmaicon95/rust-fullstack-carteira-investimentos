@@ -30,4 +30,4 @@ Gerencia uma carteira de investimentos, permitindo consolidar ativos, registrar 
 * Lidar com as regras estritas de segurança do compilador Rust.
 
 ---
-Desenvolvido por [Seu Nome] 🚀
+Desenvolvido por [Maicon] 🚀
