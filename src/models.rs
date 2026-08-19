@@ -1,14 +1,18 @@
-use serde::Serialize;
+use rust_decimal::Decimal;
+use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Clone)]
-pub struct Asset {
-    pub id: i64,
-    pub name: String,
-    pub unit_value: f64,
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow, Clone)]
+pub struct Ativo {
+    pub id: i32,
+    pub usuario_id: i32,
+    pub ticker: String,
+    pub quantidade: Decimal,
+    pub preco_atual: Decimal,
 }
 
-pub struct UserRecord {
-    pub id: i64,
-    pub username: String,
-    pub password_hash: String,
+impl Ativo {
+    // Processa dinamicamente os subtotais patrimoniais de cada ativo financeiro
+    pub fn calcular_subtotal(&self) -> Decimal {
+        self.quantidade * self.preco_atual
+    }
 }
